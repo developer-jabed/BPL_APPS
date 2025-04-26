@@ -6,9 +6,18 @@ import Newsletter from "./Pages/Newsletter/Newsletter";
 import Footer from "./Pages/Footer/Footer";
 import Cart from "./Pages/Card/Cart";
 
+interface PlayerType {
+  playerId: number | string;
+  name: string;
+  role: string;
+  country: string;
+  biddingPrice: number;
+  image: string;
+}
+
 const Home = () => {
-  const [coins, setCoins] = useState(0);
-  const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [coins, setCoins] = useState<number>(0);
+  const [selectedPlayers, setSelectedPlayers] = useState<PlayerType[]>([]);
 
   const handleClaimCredit = () => {
     toast.success("🦄🦄 Successfully added Free credit!!", {
@@ -25,8 +34,7 @@ const Home = () => {
     setCoins((prevCoins) => prevCoins + 6000000);
   };
 
-  const handleSelectedPlayer = (player) => {
-    // Prevent selection if more than 6 players have already been selected
+  const handleSelectedPlayer = (player: PlayerType) => {
     if (selectedPlayers.length >= 6) {
       toast.error("You can only select 6 players!", {
         position: "top-center",
@@ -42,7 +50,6 @@ const Home = () => {
       return;
     }
 
-    // Check if the player is already selected
     const isAlreadySelected = selectedPlayers.some(
       (selectedPlayer) => selectedPlayer.playerId === player.playerId
     );
@@ -62,7 +69,6 @@ const Home = () => {
       return;
     }
 
-    // Check if the user has enough coins
     if (coins < player.biddingPrice) {
       toast.error("Not enough coins to buy this player.", {
         position: "top-center",
@@ -78,7 +84,6 @@ const Home = () => {
       return;
     }
 
-    // Add player to selected players and deduct coins
     setSelectedPlayers((prev) => [...prev, player]);
     setCoins((prevCoins) => prevCoins - player.biddingPrice);
 

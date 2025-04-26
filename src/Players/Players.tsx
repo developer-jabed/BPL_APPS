@@ -1,9 +1,21 @@
 import { useEffect, useState } from "react";
 import Player from "./Player";
-import PropTypes from "prop-types";
 
-const Players = ({ selectedPlayers, handleSelectedPlayer }) => {
-  const [players, setPlayers] = useState([]);
+interface PlayerType {
+  playerId: number | string;
+  name: string;
+  role: string;
+  country: string;
+  biddingPrice: number;
+  image: string;
+}
+
+interface PlayersProps {
+  handleSelectedPlayer: (player: PlayerType) => void;
+}
+
+const Players = ({ handleSelectedPlayer }: PlayersProps) => {
+  const [players, setPlayers] = useState<PlayerType[]>([]);
 
   useEffect(() => {
     fetch("players.json")
@@ -13,23 +25,22 @@ const Players = ({ selectedPlayers, handleSelectedPlayer }) => {
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
-      <h1 className="text-xl text-blue-500 font-bold">Available Players</h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 mt-6 lg:grid-cols-4 gap-4 flex-1">
-        {players.map((player) => (
-          <Player
-            key={player.playerId}
-            player={player}
-            handleSelectedPlayer={handleSelectedPlayer}
-          />
-        ))}
+      <div className="flex-1">
+        <h1 className="text-xl text-blue-500 font-bold mb-4">
+          Available Players
+        </h1>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {players.map((player, index) => (
+            <Player
+              key={player.playerId || index}
+              player={player}
+              handleSelectedPlayer={handleSelectedPlayer}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
-};
-
-Players.propTypes = {
-  selectedPlayers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  handleSelectedPlayer: PropTypes.func.isRequired,
 };
 
 export default Players;

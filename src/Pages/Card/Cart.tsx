@@ -1,26 +1,57 @@
 import { useState } from "react";
 import Players from "../../Players/Players";
-import ChoosedPlayer from "../../Choosed/ChoosedPlayer.jsx";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import ChoosedPlayer from "../../Choosed/ChoosedPlayer";
+
+interface PlayerType {
+  playerId: number | string;
+  name: string;
+  role: string;
+  country: string;
+  biddingPrice: number;
+  image: string;
+}
+
+interface CartProps {
+  selectedPlayers: PlayerType[];
+  setSelectedPlayers: (players: PlayerType[]) => void;
+  handleSelectedPlayer: (player: PlayerType) => void;
+  coins: number; // Add coins prop
+  setCoins: (coins: number) => void; // Add setCoins prop
+}
 
 const Cart = ({
-  coins,
-  setCoins,
   selectedPlayers,
   setSelectedPlayers,
   handleSelectedPlayer,
-}) => {
-  const [activeTab, setActiveTab] = useState("available");
+  coins,
+  setCoins,
+}: CartProps) => {
+  const [activeTab, setActiveTab] = useState<string>("available");
 
   const tabs = [
     { id: "available", label: "Available" },
-    {
-      id: "select",
-      label: `Select (${selectedPlayers.length}) /6`, // Show selected player count
-    },
+    { id: "select", label: `Select (${selectedPlayers.length}) /6` },
   ];
+
+  // Deduct coins when a player is selected
+  const handleAddPlayer = (player: PlayerType) => {
+    if (coins >= player.biddingPrice) {
+      setCoins(coins - player.biddingPrice);
+      handleSelectedPlayer(player);
+    } else {
+      alert("Not enough coins!");
+    }
+  };
 
   return (
     <div className="p-4">
+      {/* Coins Display */}
+      <div className="mb-4">
+        <span className="text-lg font-semibold">Coins Left: {coins}</span>
+      </div>
+
       {/* Toggle Buttons */}
       <div className="flex justify-end gap-4 mb-4">
         {tabs.map((tab) => (
@@ -40,15 +71,12 @@ const Cart = ({
 
       {/* Tab Content */}
       {activeTab === "available" && (
-        <Players
-          selectedPlayers={selectedPlayers}
-          handleSelectedPlayer={handleSelectedPlayer}
-        />
+        <Players handleSelectedPlayer={handleAddPlayer} />
       )}
       {activeTab === "select" && (
         <ChoosedPlayer
           selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers} // Pass setSelectedPlayers here
+          setSelectedPlayers={setSelectedPlayers}
         />
       )}
     </div>

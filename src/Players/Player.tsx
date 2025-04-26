@@ -1,6 +1,20 @@
-import PropTypes from "prop-types";
 
-const Player = ({ player, handleSelectedPlayer }) => {
+
+interface PlayerType {
+  playerId: number | string;
+  name: string;
+  role: string;
+  country: string;
+  biddingPrice: number;
+  image: string;
+}
+
+interface PlayerProps {
+  player: PlayerType;
+  handleSelectedPlayer: (player: PlayerType) => void;
+}
+
+const Player = ({ player, handleSelectedPlayer }: PlayerProps) => {
   return (
     <div className="p-4 border rounded-2xl shadow-md bg-gradient-to-r from-white to-gray-100 hover:shadow-2xl hover:scale-105 transition-transform duration-300 flex flex-col items-center text-center">
       {/* Player Image */}
@@ -38,17 +52,6 @@ const Player = ({ player, handleSelectedPlayer }) => {
       </button>
     </div>
   );
-};
-
-Player.propTypes = {
-  player: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
-    country: PropTypes.string.isRequired,
-    biddingPrice: PropTypes.number.isRequired,
-    image: PropTypes.string, // Added image in propTypes
-  }).isRequired,
-  handleSelectedPlayer: PropTypes.func.isRequired,
 };
 
 export default Player;

@@ -1,5 +1,9 @@
 
-const Navbar= ({ coins }) => {
+interface NavbarProps {
+  coins: number;
+}
+
+const Navbar = ({ coins }: NavbarProps) => {
   return (
     <header>
       <div className="navbar bg-base-100">
@@ -30,10 +34,18 @@ const Navbar= ({ coins }) => {
               tabIndex={0}
               className="menu menu-sm dropdown-content font-bold text-xl bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">Fixture</a></li>
-              <li><a href="#services">Teams</a></li>
-              <li><a href="#contact">Schedules</a></li>
+              <li>
+                <a href="#home">Home</a>
+              </li>
+              <li>
+                <a href="#about">Fixture</a>
+              </li>
+              <li>
+                <a href="#services">Teams</a>
+              </li>
+              <li>
+                <a href="#contact">Schedules</a>
+              </li>
             </ul>
           </div>
           <a>
@@ -45,17 +57,24 @@ const Navbar= ({ coins }) => {
         <div className="navbar-end gap-2">
           <div className="hidden font-bold lg:flex">
             <ul className="menu menu-horizontal px-1">
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li>
+                <a href="#home">Home</a>
+              </li>
+              <li>
+                <a href="#about">About</a>
+              </li>
+              <li>
+                <a href="#services">Services</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
             </ul>
           </div>
           <div className="border-pu font-bold p-2 bg-slate-300 rounded-lg">
             <a className="flex gap-1 text-xl">
               <span>{coins}</span> $coins
               <img className="w-6 h-6" src="asset/coins.png" alt="Coins Icon" />
-
             </a>
           </div>
         </div>

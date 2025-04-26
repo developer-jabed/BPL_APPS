@@ -12,7 +12,7 @@ const Banner: React.FC<BannerProps> = ({ onClaimCredit }) => {
     >
       <div className="flex gap-5 flex-col justify-center items-center">
         <img className="mt-6" src="asset/banner-main.png" alt="Main Banner" />
-        <h3 className="font-bold text-[40px] text-white">
+        <h3 className="font-bold text-center text-[40px] text-white">
           Assemble Your Ultimate Dream 11 Cricket Team
         </h3>
         <p className="text-[#ffffffb3] text-2xl">

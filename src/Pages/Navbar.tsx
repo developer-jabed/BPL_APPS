@@ -1,10 +1,5 @@
-import React from "react";
 
-interface NavbarProps {
-  coins: number;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ coins }) => {
+const Navbar= ({ coins }) => {
   return (
     <header>
       <div className="navbar bg-base-100">
@@ -58,8 +53,9 @@ const Navbar: React.FC<NavbarProps> = ({ coins }) => {
           </div>
           <div className="border-pu font-bold p-2 bg-slate-300 rounded-lg">
             <a className="flex gap-1 text-xl">
-              <span>{coins}</span> $
+              <span>{coins}</span> $coins
               <img className="w-6 h-6" src="asset/coins.png" alt="Coins Icon" />
+
             </a>
           </div>
         </div>
